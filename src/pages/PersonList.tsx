@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Person } from "../types/person";
-import { useMediaQuery, useTheme } from '@mui/material';
-import { DataGrid, GridRowsProp, GridColDef, GridRowId } from '@mui/x-data-grid';
+import { useMediaQuery } from '@mui/material';
+import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import PersonView from '../components/PersonView';
 import './PersonList.scss';
 
@@ -11,8 +11,6 @@ const PersonList= () => {
     const [persons, setPersons] = useState<Person[]>([]);
     const [person, setPerson] = useState<Person>();
     const [isSelected, setIsSelected] = useState(false);
-
-    const abortControllerRef = useRef<AbortController | null>(null);
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
     const handleSelectionModelChange = (selectionModel: GridRowId[]) => {
@@ -28,9 +26,6 @@ const PersonList= () => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-
-            abortControllerRef.current?.abort();
-            abortControllerRef.current = new AbortController();
 
             try {
                 const response = await fetch('https://randomuser.me/api/?results=100&inc=id,name,phone,email,nat,picture,location,dob');
