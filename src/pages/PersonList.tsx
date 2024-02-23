@@ -102,13 +102,11 @@ const PersonList= () => {
 
     ];
     const showList = () =>{
-        if (isDesktop ) return true;
         if (isSelected && !isDesktop) return false;
         return true;
     }
 
     const showDetail = ()=>{
-        if (isDesktop && person) return true;
         if (!isSelected && !isDesktop) return false;
         return true;
     }
